@@ -1,0 +1,86 @@
+[2025-12-18 15:44:37] Starting RMM Agent (Telemetry + Remote Execution)...
+[2025-12-18 15:44:37] INFO: Configuration loaded in 1.9834ms. Version: 1.0
+[2025-12-18 15:44:37] INFO: Initializing file system structure from configuration...
+[2025-12-18 15:44:37] INFO: File system initialization complete.
+[2025-12-18 15:51:24] Starting RMM Agent (Telemetry + Remote Execution)...
+[2025-12-18 15:51:24] INFO: Configuration loaded in 609.5µs. Version: 1.0
+[2025-12-18 15:51:24] INFO: No existing DB found. Starting fresh.
+[2025-12-18 15:51:24] INFO: Initializing file system structure from configuration...
+[2025-12-18 15:51:24] INFO: File system initialization complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Camera
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Camera\Driver
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Audio
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Audio\Driver
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Audio\Driver\Aispeech
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Audio\Driver\Aispeech\AISpeechAPO
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Audio
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Audio
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Audio\Driver
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Audio\Driver\Aispeech
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Audio\Driver\Aispeech\AISpeechAPO
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\IGCC
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Camera
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Camera\Driver
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Video
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Video
+[2025-12-18 15:51:24] DEBUG: DB HIT for C:\Drivers\Video
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.
+[2025-12-18 15:51:24] INFO: Starting background filesystem indexing...
+[2025-12-18 15:51:24] INFO: Background indexing complete.

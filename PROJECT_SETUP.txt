@@ -1,0 +1,102 @@
+# RMM-Tec Project Setup Guide
+
+This document describes how to set up and run the RMM-Tec project, which consists of a Laravel server and a Go agent.
+
+## Prerequisites
+
+- **PHP**: 8.2 or higher
+- **Composer**: Latest version
+- **Go**: 1.21 or higher
+- **Node.js & NPM**: Latest LTS (Optional, for building frontend assets if needed)
+- **SQLite**: (Default database)
+
+## 1. Server Setup (Laravel)
+
+The server is located in the `server/` directory.
+
+1.  Navigate to the server directory:
+    ```bash
+    cd server
+    ```
+
+2.  Install PHP dependencies:
+    ```bash
+    composer install
+    ```
+
+3.  Configure Environment:
+    - Copy `.env.example` to `.env`:
+      ```bash
+      cp .env.example .env
+      ```
+    - The default database is configured for SQLite. Ensure `database/database.sqlite` exists (create an empty file if not).
+
+4.  Generate Application Key:
+    ```bash
+    php artisan key:generate
+    ```
+
+5.  Run Migrations and Seeders:
+    ```bash
+    php artisan migrate --seed
+    ```
+    *This will create the default user (test@example.com / password) and initial data.*
+
+6.  Start the Server:
+    ```bash
+    php artisan serve --port=8085
+    ```
+    *The server will be available at http://127.0.0.1:8085*
+
+## 2. Agent Setup (Go)
+
+The agent is located in the `agent/` directory.
+
+1.  Navigate to the agent directory:
+    ```bash
+    cd agent
+    ```
+
+2.  Initialize/Update Go modules:
+    ```bash
+    go mod tidy
+    ```
+
+3.  Build the Agent:
+    ```bash
+    go build -o agent.exe main.go
+    ```
+
+4.  Run the Agent:
+    - **Important:** The agent often requires Administrator privileges to list directories or perform file operations on `C:\`.
+    - Run `agent.exe` in an elevated terminal (Run as Administrator).
+    - Ensure the agent is configured to point to your server URL (default `http://localhost:8085` or check `agent/main.go`).
+
+## 3. Configuration
+
+- **Mapping Config**: The system looks for a configuration file at `C:\mapeo_config\config.json`.
+    - Ensure this directory and file exist for optimized directory mapping.
+    - Example content:
+      ```json
+      {
+        "mappings": {
+          "C:\\Drivers": "Drivers"
+        }
+      }
+      ```
+
+- **File System Database**: The agent maintains a local cache DB at `filesystem_db.json` in the working directory to speed up listings.
+
+## 4. Usage
+
+1.  Open your browser and go to `http://127.0.0.1:8085/admin`.
+2.  Login with credentials:
+    - **Email:** `admin@example.com`
+    - **Password:** `password`
+3.  Navigate to "Endpoints" and manage files.
+
+## Troubleshooting
+
+- **Agent not connecting**: Check firewall settings and ensure port 8085 is open.
+- **"Access Denied"**: Run the agent as Administrator.
+- **Frontend stuck**: Use the "Recargar" button or check the agent logs in `agent/agent_execution.log`.

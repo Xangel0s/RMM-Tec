@@ -1,0 +1,5 @@
+{
+    "require": {
+        "filament/tables": "^4.3"
+    }
+}
