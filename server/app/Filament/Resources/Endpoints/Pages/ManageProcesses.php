@@ -3,11 +3,11 @@
 namespace App\Filament\Resources\Endpoints\Pages;
 
 use App\Filament\Resources\Endpoints\EndpointResource;
-use Filament\Resources\Pages\Page;
-use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use App\Models\Command;
-use Filament\Notifications\Notification;
 use Filament\Actions\Action;
+use Filament\Notifications\Notification;
+use Filament\Resources\Pages\Concerns\InteractsWithRecord;
+use Filament\Resources\Pages\Page;
 
 class ManageProcesses extends Page
 {
@@ -16,16 +16,20 @@ class ManageProcesses extends Page
     protected static string $resource = EndpointResource::class;
 
     protected string $view = 'filament.resources.endpoints.pages.manage-processes';
-    
+
     protected static ?string $title = 'Administrador de Procesos';
 
     public $processes = [];
+
     public $loading = false;
+
     public $lastCommandId = null;
 
     // Sorting and Searching
     public $search = '';
+
     public $sortColumn = 'cpu';
+
     public $sortDirection = 'desc';
 
     public function updatedSearch()
@@ -48,17 +52,17 @@ class ManageProcesses extends Page
         $data = $this->processes;
 
         // Filtering
-        if (!empty($this->search)) {
+        if (! empty($this->search)) {
             $data = array_filter($data, function ($item) {
-                return stripos($item['name'] ?? '', $this->search) !== false 
-                    || stripos((string)($item['pid'] ?? ''), $this->search) !== false;
+                return stripos($item['name'] ?? '', $this->search) !== false
+                    || stripos((string) ($item['pid'] ?? ''), $this->search) !== false;
             });
         }
 
         // Sorting
         usort($data, function ($a, $b) {
             $col = $this->sortColumn;
-            
+
             $valA = $a[$col] ?? 0;
             $valB = $b[$col] ?? 0;
 
@@ -67,17 +71,19 @@ class ManageProcesses extends Page
                 $valA = (float) $valA;
                 $valB = (float) $valB;
             }
-            
+
             // Handle memory (remove ' MB' and parse float)
             if ($col === 'memory') {
-                 $valA = (float) filter_var($valA, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-                 $valB = (float) filter_var($valB, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                $valA = (float) filter_var($valA, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                $valB = (float) filter_var($valB, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
             }
 
-            if ($valA == $valB) return 0;
-            
+            if ($valA == $valB) {
+                return 0;
+            }
+
             $result = ($valA < $valB) ? -1 : 1;
-            
+
             return $this->sortDirection === 'asc' ? $result : -$result;
         });
 
@@ -96,7 +102,7 @@ class ManageProcesses extends Page
         ];
     }
 
-    public function mount(int | string $record): void
+    public function mount(int|string $record): void
     {
         $this->record = $this->resolveRecord($record);
     }
@@ -104,24 +110,28 @@ class ManageProcesses extends Page
     public function refreshProcesses()
     {
         $this->loading = true;
-        
+
         $command = $this->record->commands()->create([
             'command' => '__GET_PROCESSES__',
             'status' => 'pending',
         ]);
-        
+
         $this->lastCommandId = $command->id;
-        
+
         Notification::make()->title('Solicitando lista de procesos...')->info()->send();
     }
-    
-    public function checkStatus() 
+
+    public function checkStatus()
     {
-        if (!$this->lastCommandId) return;
-        
+        if (! $this->lastCommandId) {
+            return;
+        }
+
         $cmd = Command::find($this->lastCommandId);
-        
-        if (!$cmd) return;
+
+        if (! $cmd) {
+            return;
+        }
 
         if ($cmd->status === 'completed') {
             $data = json_decode($cmd->output, true);
@@ -134,9 +144,9 @@ class ManageProcesses extends Page
             $this->loading = false;
             $this->lastCommandId = null;
         } elseif ($cmd->status === 'failed') {
-             $this->loading = false;
-             $this->lastCommandId = null;
-             Notification::make()->title('El agente reportó un error')->danger()->send();
+            $this->loading = false;
+            $this->lastCommandId = null;
+            Notification::make()->title('El agente reportó un error')->danger()->send();
         }
     }
 
@@ -146,7 +156,7 @@ class ManageProcesses extends Page
             'command' => "__KILL_PROCESS__ $pid",
             'status' => 'pending',
         ]);
-        
+
         Notification::make()->title("Enviada orden de finalizar PID $pid")->success()->send();
     }
 }

@@ -2,14 +2,14 @@
 
 namespace App\Filament\Resources\Endpoints\RelationManagers;
 
+use Filament\Actions\CreateAction;
+use Filament\Actions\DeleteAction; // Changed from Filament\Forms\Form
+use Filament\Actions\ViewAction;
 use Filament\Forms;
-use Filament\Schemas\Schema; // Changed from Filament\Forms\Form
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Actions\CreateAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\ViewAction;
 
 class CommandsRelationManager extends RelationManager
 {
@@ -26,7 +26,7 @@ class CommandsRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
-                
+
                 // Ocultamos el status y output al crear, solo los mostramos al editar/ver
                 Forms\Components\Select::make('status')
                     ->options([

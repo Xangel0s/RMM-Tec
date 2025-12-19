@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
@@ -155,6 +156,12 @@ func main() {
 			"disk_used_percent": fmt.Sprintf("%.2f", d.UsedPercent),
 		}
 
+		// Try to find RustDesk ID
+		rustDeskID := getRustDeskID()
+		if rustDeskID == "" {
+			rustDeskID = "Not Found"
+		}
+
 		payload := HeartbeatPayload{
 			Hostname:        hostname,
 			ApiToken:        apiToken,
@@ -162,7 +169,7 @@ func main() {
 			PublicIP:        "8.8.8.8",
 			OSInfo:          "Windows 11",
 			HardwareSummary: hardware,
-			RustDeskID:      "123456789",
+			RustDeskID:      rustDeskID,
 		}
 
 		// 2. Enviar Heartbeat
@@ -764,4 +771,55 @@ func downloadFile(url string, dest string) (string, string) {
 
 	log.Printf("INFO: File downloaded successfully to %s", dest)
 	return fmt.Sprintf("File downloaded successfully to %s", dest), "completed"
+}
+
+func getRustDeskID() string {
+	// Common paths for RustDesk config
+	// 1. User AppData
+	appData, err := os.UserConfigDir()
+	if err == nil {
+		path := filepath.Join(appData, "RustDesk", "config", "RustDesk2.toml")
+		if id := extractIDFromToml(path); id != "" {
+			return id
+		}
+		path = filepath.Join(appData, "RustDesk", "config", "RustDesk.toml")
+		if id := extractIDFromToml(path); id != "" {
+			return id
+		}
+	}
+
+	// 2. Service AppData (System) - Hardcoded for typical Windows install
+	servicePath := `C:\Windows\ServiceProfiles\LocalService\AppData\Roaming\RustDesk\config\RustDesk2.toml`
+	if id := extractIDFromToml(servicePath); id != "" {
+		return id
+	}
+	servicePath = `C:\Windows\ServiceProfiles\LocalService\AppData\Roaming\RustDesk\config\RustDesk.toml`
+	if id := extractIDFromToml(servicePath); id != "" {
+		return id
+	}
+
+	return ""
+}
+
+func extractIDFromToml(path string) string {
+	file, err := os.Open(path)
+	if err != nil {
+		return ""
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		// Look for: id = '123456' or id = "123456"
+		if strings.HasPrefix(line, "id =") {
+			parts := strings.Split(line, "=")
+			if len(parts) == 2 {
+				id := strings.TrimSpace(parts[1])
+				id = strings.Trim(id, "'\"")
+				return id
+			}
+		}
+	}
+	return ""
 }

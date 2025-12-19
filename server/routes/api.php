@@ -11,5 +11,11 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/heartbeat', [HeartbeatController::class, 'store']);
 
+// External Sticker Portal Routes
+Route::prefix('portal')->group(function () {
+    Route::post('/tickets', [\App\Http\Controllers\Api\ExternalTicketController::class, 'store']);
+    Route::get('/tickets/{public_id}', [\App\Http\Controllers\Api\ExternalTicketController::class, 'track']);
+});
+
 Route::get('/commands/pending', [CommandController::class, 'pending']);
 Route::post('/commands/{id}/result', [CommandController::class, 'result']);

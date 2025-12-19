@@ -14,12 +14,12 @@ class CommandController extends Controller
     {
         // 1. Validar el token del agente (simple auth por ahora)
         $apiToken = $request->query('api_token');
-        if (!$apiToken) {
+        if (! $apiToken) {
             return response()->json(['error' => 'API Token required'], 401);
         }
 
         $endpoint = Endpoint::where('api_token', $apiToken)->first();
-        if (!$endpoint) {
+        if (! $endpoint) {
             return response()->json(['error' => 'Invalid API Token'], 401);
         }
 
@@ -37,7 +37,7 @@ class CommandController extends Controller
     public function result(Request $request, $id)
     {
         $command = Command::find($id);
-        if (!$command) {
+        if (! $command) {
             return response()->json(['error' => 'Command not found'], 404);
         }
 
