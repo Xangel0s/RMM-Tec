@@ -35,6 +35,41 @@ class Ticket extends Model
                     $ticket->public_id = 'TKT-'.strtoupper(Str::random(8));
                 }
             }
+            $text = strtolower(($ticket->title ?? '') . ' ' . ($ticket->description ?? ''));
+            if (empty($ticket->priority)) {
+                $ticket->priority = str_contains($text, 'critical') || str_contains($text, 'urgent') || str_contains($text, 'fallo') ? 'high' : (str_contains($text, 'error') ? 'medium' : 'low');
+            }
+            if (empty($ticket->department)) {
+                $ticket->department = str_contains($text, 'red') || str_contains($text, 'network') ? 'Networking' :
+                    (str_contains($text, 'printer') ? 'Printing' :
+                    (str_contains($text, 'software') || str_contains($text, 'app') ? 'Software' : 'General'));
+            }
+        });
+
+        static::created(function ($ticket) {
+            AuditLog::create([
+                'user_id' => $ticket->user_id,
+                'action' => 'ticket_created',
+                'endpoint_id' => $ticket->endpoint_id,
+                'details' => [
+                    'ticket_id' => $ticket->id,
+                    'public_id' => $ticket->public_id,
+                    'status' => $ticket->status,
+                    'priority' => $ticket->priority,
+                ],
+            ]);
+        });
+
+        static::updated(function ($ticket) {
+            AuditLog::create([
+                'user_id' => $ticket->user_id,
+                'action' => 'ticket_updated',
+                'endpoint_id' => $ticket->endpoint_id,
+                'details' => [
+                    'ticket_id' => $ticket->id,
+                    'changes' => $ticket->getChanges(),
+                ],
+            ]);
         });
     }
 
